@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-condo.org/schemas/v0.1/common.schema.json",
+  "title": "Open Condo Common Definitions v0.1",
+  "description": "Definiciones reutilizables para todos los esquemas Open Condo 0.1.",
+  "$defs": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0",
+      "description": "Versión exacta del esquema con el que se declara compatible el documento."
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "description": "Identificador opaco y estable dentro del sistema emisor. No debe contener datos personales."
+    },
+    "externalId": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "value"],
+      "properties": {
+        "system": {"type": "string", "minLength": 1, "maxLength": 100},
+        "value": {"type": "string", "minLength": 1, "maxLength": 255}
+      }
+    },
+    "externalIds": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/externalId"},
+      "uniqueItems": true,
+      "default": []
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Fecha calendario ISO 8601 en formato YYYY-MM-DD."
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Fecha y hora RFC 3339 con offset o Z."
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "Código de moneda ISO 4217; para pesos mexicanos use MXN."
+    },
+    "money": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "currency"],
+      "properties": {
+        "value": {
+          "type": "number",
+          "multipleOf": 0.01,
+          "description": "Importe expresado en unidades mayores de la moneda."
+        },
+        "currency": {"$ref": "#/$defs/currency"}
+      }
+    },
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "municipality", "country"],
+      "properties": {
+        "street": {"type": "string", "maxLength": 200},
+        "exterior_number": {"type": "string", "maxLength": 40},
+        "interior_number": {"type": "string", "maxLength": 40},
+        "neighborhood": {"type": "string", "maxLength": 150},
+        "municipality": {"type": "string", "minLength": 1, "maxLength": 150},
+        "state": {"type": "string", "minLength": 1, "maxLength": 150},
+        "postal_code": {"type": "string", "pattern": "^[0-9]{5}$"},
+        "country": {"type": "string", "const": "MX"},
+        "formatted": {"type": "string", "maxLength": 500}
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Extensiones no normativas. No debe almacenar secretos, credenciales ni datos prohibidos.",
+      "additionalProperties": true,
+      "default": {}
+    },
+    "auditFields": {
+      "type": "object",
+      "required": ["created_at", "updated_at"],
+      "properties": {
+        "created_at": {"$ref": "#/$defs/dateTime"},
+        "updated_at": {"$ref": "#/$defs/dateTime"}
+      }
+    }
+  }
+}
