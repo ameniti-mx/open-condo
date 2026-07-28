@@ -1,0 +1,26 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.1/charge.schema.json",
+  "title":"Open Condo Charge v0.1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schema_version","id","condominium_id","unit_id","type","concept","amount","status","issued_at","due_at","created_at","updated_at"],
+  "properties":{
+    "schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},
+    "id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "condominium_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "unit_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "external_ids":{"$ref":"common.schema.json#/$defs/externalIds"},
+    "type":{"type":"string","enum":["ordinary_fee","extraordinary_fee","penalty","interest","amenity","maintenance","utility","other"]},
+    "concept":{"type":"string","minLength":1,"maxLength":300},
+    "description":{"type":"string","maxLength":2000},
+    "amount":{"$ref":"common.schema.json#/$defs/money"},
+    "status":{"type":"string","enum":["pending","partially_paid","paid","cancelled","overdue"]},
+    "issued_at":{"$ref":"common.schema.json#/$defs/date"},
+    "due_at":{"$ref":"common.schema.json#/$defs/date"},
+    "period":{"type":"object","additionalProperties":false,"required":["start","end"],"properties":{"start":{"$ref":"common.schema.json#/$defs/date"},"end":{"$ref":"common.schema.json#/$defs/date"}}},
+    "metadata":{"$ref":"common.schema.json#/$defs/metadata"},
+    "created_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "updated_at":{"$ref":"common.schema.json#/$defs/dateTime"}
+  }
+}
