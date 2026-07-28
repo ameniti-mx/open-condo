@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.1/payment.schema.json",
+  "title":"Open Condo Payment v0.1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schema_version","id","condominium_id","unit_id","amount","method","status","paid_at","allocations","created_at","updated_at"],
+  "properties":{
+    "schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},
+    "id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "condominium_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "unit_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "external_ids":{"$ref":"common.schema.json#/$defs/externalIds"},
+    "amount":{"$ref":"common.schema.json#/$defs/money"},
+    "method":{"type":"string","enum":["bank_transfer","cash","credit_card","debit_card","direct_debit","cash_reference","check","other"]},
+    "status":{"type":"string","enum":["pending","confirmed","failed","refunded","cancelled"]},
+    "paid_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "reference":{"type":"string","maxLength":255},
+    "allocations":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["charge_id","amount"],"properties":{"charge_id":{"$ref":"common.schema.json#/$defs/identifier"},"amount":{"$ref":"common.schema.json#/$defs/money"}}},"default":[]},
+    "metadata":{"$ref":"common.schema.json#/$defs/metadata"},
+    "created_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "updated_at":{"$ref":"common.schema.json#/$defs/dateTime"}
+  }
+}
