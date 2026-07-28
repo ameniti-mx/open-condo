@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1.0",
+  "condominium": {
+    "id": "cond_mx_001",
+    "name": "Condominio Ejemplo",
+    "country": "MX",
+    "state": "Nuevo León"
+  },
+  "unit": {
+    "id": "unit_a_302",
+    "building": "Torre A",
+    "number": "302",
+    "type": "apartment"
+  }
+}
