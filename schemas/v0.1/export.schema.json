@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.1/export.schema.json",
+  "title":"Open Condo Export v0.1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["open_condo","condominium","units","people","occupancies","charges","payments"],
+  "properties":{
+    "open_condo":{"type":"object","additionalProperties":false,"required":["schema_version","exported_at","generator"],"properties":{"schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},"exported_at":{"$ref":"common.schema.json#/$defs/dateTime"},"generator":{"type":"object","additionalProperties":false,"required":["name","version"],"properties":{"name":{"type":"string","minLength":1,"maxLength":150},"version":{"type":"string","minLength":1,"maxLength":100},"url":{"type":"string","format":"uri"}}},"export_id":{"$ref":"common.schema.json#/$defs/identifier"},"notes":{"type":"string","maxLength":2000}}},
+    "condominium":{"$ref":"condominium.schema.json"},
+    "units":{"type":"array","items":{"$ref":"unit.schema.json"}},
+    "people":{"type":"array","items":{"$ref":"person.schema.json"}},
+    "occupancies":{"type":"array","items":{"$ref":"occupancy.schema.json"}},
+    "charges":{"type":"array","items":{"$ref":"charge.schema.json"}},
+    "payments":{"type":"array","items":{"$ref":"payment.schema.json"}}
+  }
+}
