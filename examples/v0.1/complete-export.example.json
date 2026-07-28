@@ -1,0 +1,125 @@
+{
+  "open_condo": {
+    "schema_version": "0.1.0",
+    "exported_at": "2026-08-15T12:00:00-06:00",
+    "export_id": "export_demo_20260815",
+    "generator": {
+      "name": "Sistema de ejemplo",
+      "version": "1.0.0",
+      "url": "https://example.com"
+    },
+    "notes": "Datos completamente ficticios para validación y documentación."
+  },
+  "condominium": {
+    "schema_version": "0.1.0",
+    "id": "cond_demo_001",
+    "external_ids": [{"system": "legacy_demo", "value": "C-100"}],
+    "name": "Residencial Valle Central",
+    "legal_name": "Condominio Residencial Valle Central",
+    "status": "active",
+    "country": "MX",
+    "timezone": "America/Mexico_City",
+    "currency": "MXN",
+    "address": {
+      "street": "Avenida Central",
+      "exterior_number": "120",
+      "neighborhood": "Centro Sur",
+      "municipality": "Querétaro",
+      "state": "Querétaro",
+      "postal_code": "76090",
+      "country": "MX",
+      "formatted": "Avenida Central 120, Centro Sur, Querétaro, Querétaro, 76090, México"
+    },
+    "configuration": {"declared_unit_count": 2, "uses_indiviso": true},
+    "metadata": {},
+    "created_at": "2026-01-01T09:00:00-06:00",
+    "updated_at": "2026-08-15T11:59:00-06:00"
+  },
+  "units": [
+    {
+      "schema_version": "0.1.0",
+      "id": "unit_a_302",
+      "condominium_id": "cond_demo_001",
+      "external_ids": [{"system": "legacy_demo", "value": "A-302"}],
+      "display_name": "Torre A · 302",
+      "type": "apartment",
+      "building": "Torre A",
+      "number": "302",
+      "floor": "3",
+      "status": "active",
+      "indiviso": {"value": 0.005, "unit": "fraction"},
+      "attributes": {"bedrooms": 2, "parking_spaces": 2, "storage_units": 1, "area_m2": 96.5},
+      "metadata": {},
+      "created_at": "2026-01-01T09:00:00-06:00",
+      "updated_at": "2026-08-15T11:00:00-06:00"
+    }
+  ],
+  "people": [
+    {
+      "schema_version": "0.1.0",
+      "id": "person_demo_001",
+      "external_ids": [],
+      "name": {"given_names": "María Fernanda", "family_name": "Gómez Ejemplo", "display_name": "María Fernanda Gómez Ejemplo"},
+      "contact": {"email": "maria@example.com", "phone": {"country_code": "52", "national_number": "4421234567"}},
+      "status": "active",
+      "metadata": {},
+      "created_at": "2026-01-01T09:00:00-06:00",
+      "updated_at": "2026-08-15T11:00:00-06:00"
+    }
+  ],
+  "occupancies": [
+    {
+      "schema_version": "0.1.0",
+      "id": "occupancy_demo_001",
+      "condominium_id": "cond_demo_001",
+      "unit_id": "unit_a_302",
+      "person_id": "person_demo_001",
+      "role": "owner",
+      "status": "active",
+      "is_primary_contact": true,
+      "valid_from": "2026-01-01",
+      "valid_until": null,
+      "metadata": {},
+      "created_at": "2026-01-01T09:00:00-06:00",
+      "updated_at": "2026-08-15T11:00:00-06:00"
+    }
+  ],
+  "charges": [
+    {
+      "schema_version": "0.1.0",
+      "id": "charge_aug_001",
+      "condominium_id": "cond_demo_001",
+      "unit_id": "unit_a_302",
+      "external_ids": [],
+      "type": "ordinary_fee",
+      "concept": "Cuota ordinaria de agosto 2026",
+      "description": "Cuota mensual de mantenimiento.",
+      "amount": {"value": 2500, "currency": "MXN"},
+      "status": "paid",
+      "issued_at": "2026-08-01",
+      "due_at": "2026-08-10",
+      "period": {"start": "2026-08-01", "end": "2026-08-31"},
+      "metadata": {},
+      "created_at": "2026-08-01T08:00:00-06:00",
+      "updated_at": "2026-08-08T14:35:00-06:00"
+    }
+  ],
+  "payments": [
+    {
+      "schema_version": "0.1.0",
+      "id": "payment_aug_001",
+      "condominium_id": "cond_demo_001",
+      "unit_id": "unit_a_302",
+      "external_ids": [],
+      "amount": {"value": 2500, "currency": "MXN"},
+      "method": "bank_transfer",
+      "status": "confirmed",
+      "paid_at": "2026-08-08T14:34:00-06:00",
+      "reference": "SPEI-DEMO-839284",
+      "allocations": [{"charge_id": "charge_aug_001", "amount": {"value": 2500, "currency": "MXN"}}],
+      "metadata": {},
+      "created_at": "2026-08-08T14:35:00-06:00",
+      "updated_at": "2026-08-08T14:35:00-06:00"
+    }
+  ]
+}
