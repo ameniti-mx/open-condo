@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.1/unit.schema.json",
+  "title":"Open Condo Unit v0.1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schema_version","id","condominium_id","display_name","type","status","created_at","updated_at"],
+  "properties":{
+    "schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},
+    "id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "condominium_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "external_ids":{"$ref":"common.schema.json#/$defs/externalIds"},
+    "display_name":{"type":"string","minLength":1,"maxLength":150},
+    "type":{"type":"string","enum":["apartment","house","commercial","office","parking","storage","other"]},
+    "building":{"type":"string","maxLength":100},
+    "number":{"type":"string","maxLength":80},
+    "floor":{"type":"string","maxLength":40},
+    "status":{"type":"string","enum":["active","inactive","archived"]},
+    "indiviso":{"type":"object","additionalProperties":false,"required":["value","unit"],"properties":{"value":{"type":"number","minimum":0},"unit":{"type":"string","enum":["fraction","percentage"]}}},
+    "attributes":{"type":"object","additionalProperties":false,"properties":{"bedrooms":{"type":"integer","minimum":0},"parking_spaces":{"type":"integer","minimum":0},"storage_units":{"type":"integer","minimum":0},"area_m2":{"type":"number","exclusiveMinimum":0}}},
+    "metadata":{"$ref":"common.schema.json#/$defs/metadata"},
+    "created_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "updated_at":{"$ref":"common.schema.json#/$defs/dateTime"}
+  }
+}
