@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.1/occupancy.schema.json",
+  "title":"Open Condo Occupancy v0.1",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["schema_version","id","condominium_id","unit_id","person_id","role","status","is_primary_contact","valid_from","created_at","updated_at"],
+  "properties":{
+    "schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},
+    "id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "condominium_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "unit_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "person_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "role":{"type":"string","enum":["owner","tenant","resident","family_member","authorized_person","emergency_contact","other"]},
+    "status":{"type":"string","enum":["active","inactive","ended"]},
+    "is_primary_contact":{"type":"boolean"},
+    "valid_from":{"$ref":"common.schema.json#/$defs/date"},
+    "valid_until":{"oneOf":[{"$ref":"common.schema.json#/$defs/date"},{"type":"null"}]},
+    "metadata":{"$ref":"common.schema.json#/$defs/metadata"},
+    "created_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "updated_at":{"$ref":"common.schema.json#/$defs/dateTime"}
+  }
+}
