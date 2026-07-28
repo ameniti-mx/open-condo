@@ -1,0 +1,19 @@
+{
+  "name": "@ameniti/open-condo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Especificación abierta para la interoperabilidad de datos condominales en México.",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate.mjs examples/v0.1/complete-export.example.json",
+    "validate": "node scripts/validate.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "Apache-2.0"
+}
