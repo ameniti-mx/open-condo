@@ -1,0 +1,20 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.2/export.schema.json",
+  "title":"Open Condo Export v0.2",
+  "type":"object","additionalProperties":false,
+  "required":["open_condo","condominium","units","people","occupancies","charges","payments","amenities","rule_sets","reservations","reservation_charges"],
+  "properties":{
+    "open_condo":{"type":"object","additionalProperties":false,"required":["schema_version","exported_at","generator"],"properties":{"schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},"exported_at":{"$ref":"common.schema.json#/$defs/dateTime"},"generator":{"type":"object","additionalProperties":false,"required":["name","version"],"properties":{"name":{"type":"string","minLength":1,"maxLength":150},"version":{"type":"string","minLength":1,"maxLength":100},"url":{"type":"string","format":"uri"}}},"export_id":{"$ref":"common.schema.json#/$defs/identifier"},"notes":{"type":"string","maxLength":2000}}},
+    "condominium":{"$ref":"../v0.1/condominium.schema.json"},
+    "units":{"type":"array","items":{"$ref":"../v0.1/unit.schema.json"}},
+    "people":{"type":"array","items":{"$ref":"../v0.1/person.schema.json"}},
+    "occupancies":{"type":"array","items":{"$ref":"../v0.1/occupancy.schema.json"}},
+    "charges":{"type":"array","items":{"$ref":"../v0.1/charge.schema.json"}},
+    "payments":{"type":"array","items":{"$ref":"../v0.1/payment.schema.json"}},
+    "amenities":{"type":"array","items":{"$ref":"amenity.schema.json"}},
+    "rule_sets":{"type":"array","items":{"$ref":"rule-set.schema.json"}},
+    "reservations":{"type":"array","items":{"$ref":"reservation.schema.json"}},
+    "reservation_charges":{"type":"array","items":{"$ref":"reservation-charge.schema.json"}}
+  }
+}
