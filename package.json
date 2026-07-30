@@ -5,7 +5,7 @@
   "description": "Especificación abierta para la interoperabilidad de datos condominales en México.",
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate.mjs examples/v0.1/complete-export.example.json",
+    "test": "node scripts/test.mjs",
     "validate": "node scripts/validate.mjs"
   },
   "devDependencies": {
