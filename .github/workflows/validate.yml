@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   validate:
+    name: Schema and semantic validation
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -21,11 +22,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 24
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --ignore-scripts
 
-      - name: Validate official examples
+      - name: Run conformance tests
         run: npm test
+
+      - name: Validate official export directly
+        run: npm run validate -- examples/v0.1/complete-export.example.json
