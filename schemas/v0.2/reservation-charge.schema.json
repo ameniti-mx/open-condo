@@ -1,0 +1,28 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.2/reservation-charge.schema.json",
+  "title":"Open Condo Reservation Charge v0.2",
+  "type":"object","additionalProperties":false,
+  "required":["schema_version","id","condominium_id","reservation_id","unit_id","type","concept","amount","status","created_at","updated_at"],
+  "properties":{
+    "schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},
+    "id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "condominium_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "reservation_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "unit_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "charge_id":{"$ref":"../v0.1/common.schema.json#/$defs/identifier"},
+    "type":{"enum":["usage_fee","deposit","cleaning_fee","guest_fee","late_cancellation","no_show","damage","overtime","discount","refund_adjustment","other"]},
+    "concept":{"type":"string","minLength":1,"maxLength":300},
+    "amount":{"$ref":"common.schema.json#/$defs/money"},
+    "status":{"enum":["quoted","pending","posted","paid","waived","cancelled","refunded","partially_refunded"]},
+    "rule_set_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "rule_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "calculation":{"type":"object","additionalProperties":false,"properties":{"basis":{"enum":["flat","per_hour","per_slot","per_person","per_guest","percentage","formula"]},"quantity":{"type":"number","minimum":0},"unit_amount":{"$ref":"common.schema.json#/$defs/money"},"formula":{"type":"string","maxLength":1000},"inputs":{"type":"object","additionalProperties":true}}},
+    "due_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "refundable":{"type":"boolean","default":false},
+    "refundable_until":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "metadata":{"$ref":"common.schema.json#/$defs/metadata"},
+    "created_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "updated_at":{"$ref":"common.schema.json#/$defs/dateTime"}
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.2/amenity.schema.json",
+  "title":"Open Condo Amenity v0.2",
+  "type":"object","additionalProperties":false,
+  "required":["schema_version","id","condominium_id","name","type","status","reservation_mode","timezone","created_at","updated_at"],
+  "properties":{
+    "schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},
+    "id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "condominium_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "name":{"type":"string","minLength":1,"maxLength":180},
+    "description":{"type":"string","maxLength":3000},
+    "type":{"enum":["pool","gym","sports_court","event_room","grill","coworking","spa","cinema","playroom","rooftop","parking","other"]},
+    "status":{"enum":["active","inactive","maintenance","temporarily_closed","retired"]},
+    "reservation_mode":{"enum":["not_required","optional","required","request_approval","lottery","queue"]},
+    "timezone":{"type":"string","minLength":1,"maxLength":100},
+    "capacity":{"type":"integer","minimum":1},
+    "resources":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["id","name","status"],"properties":{"id":{"$ref":"common.schema.json#/$defs/identifier"},"name":{"type":"string","minLength":1,"maxLength":150},"status":{"enum":["active","inactive","maintenance"]},"capacity":{"type":"integer","minimum":1},"metadata":{"$ref":"common.schema.json#/$defs/metadata"}}}},
+    "features":{"type":"array","uniqueItems":true,"items":{"type":"string","maxLength":100}},
+    "rule_set_ids":{"type":"array","uniqueItems":true,"items":{"$ref":"common.schema.json#/$defs/identifier"}},
+    "metadata":{"$ref":"common.schema.json#/$defs/metadata"},
+    "created_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "updated_at":{"$ref":"common.schema.json#/$defs/dateTime"}
+  }
+}

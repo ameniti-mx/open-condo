@@ -1,0 +1,30 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://open-condo.org/schemas/v0.2/reservation.schema.json",
+  "title":"Open Condo Reservation v0.2",
+  "type":"object","additionalProperties":false,
+  "required":["schema_version","id","condominium_id","amenity_id","unit_id","requested_by_person_id","starts_at","ends_at","status","party_size","rule_evaluation","created_at","updated_at"],
+  "properties":{
+    "schema_version":{"$ref":"common.schema.json#/$defs/schemaVersion"},
+    "id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "condominium_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "amenity_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "resource_ids":{"type":"array","uniqueItems":true,"items":{"$ref":"common.schema.json#/$defs/identifier"}},
+    "unit_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "requested_by_person_id":{"$ref":"common.schema.json#/$defs/identifier"},
+    "beneficiary_person_ids":{"type":"array","uniqueItems":true,"items":{"$ref":"common.schema.json#/$defs/identifier"}},
+    "starts_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "ends_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "status":{"enum":["draft","pending","pending_payment","pending_approval","confirmed","waitlisted","checked_in","completed","cancelled","rejected","expired","no_show"]},
+    "party_size":{"type":"integer","minimum":1},
+    "guest_count":{"type":"integer","minimum":0,"default":0},
+    "source":{"enum":["resident_app","admin","concierge","import","api","automation"]},
+    "notes":{"type":"string","maxLength":2000},
+    "rule_evaluation":{"type":"object","additionalProperties":false,"required":["evaluated_at","rule_set_ids","decision","applied_rule_ids"],"properties":{"evaluated_at":{"$ref":"common.schema.json#/$defs/dateTime"},"rule_set_ids":{"type":"array","items":{"$ref":"common.schema.json#/$defs/identifier"}},"decision":{"enum":["allowed","denied","approval_required","waitlisted"]},"applied_rule_ids":{"type":"array","items":{"$ref":"common.schema.json#/$defs/identifier"}},"warnings":{"type":"array","items":{"type":"string","maxLength":500}},"snapshot":{"type":"object","additionalProperties":true}}},
+    "approval":{"type":"object","additionalProperties":false,"properties":{"status":{"enum":["not_required","pending","approved","rejected"]},"decided_by_person_id":{"$ref":"common.schema.json#/$defs/identifier"},"decided_at":{"$ref":"common.schema.json#/$defs/dateTime"},"reason":{"type":"string","maxLength":1000}}},
+    "cancellation":{"type":"object","additionalProperties":false,"properties":{"cancelled_at":{"$ref":"common.schema.json#/$defs/dateTime"},"cancelled_by_person_id":{"$ref":"common.schema.json#/$defs/identifier"},"reason_code":{"type":"string","maxLength":100},"reason":{"type":"string","maxLength":1000},"penalty_rule_id":{"$ref":"common.schema.json#/$defs/identifier"}}},
+    "metadata":{"$ref":"common.schema.json#/$defs/metadata"},
+    "created_at":{"$ref":"common.schema.json#/$defs/dateTime"},
+    "updated_at":{"$ref":"common.schema.json#/$defs/dateTime"}
+  }
+}
