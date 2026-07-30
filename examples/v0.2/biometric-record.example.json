@@ -1,0 +1,58 @@
+{
+  "schema_version": "0.2.0",
+  "id": "bio:face:person-001:2026-07",
+  "condominium_id": "condo:lanka",
+  "person_id": "person:001",
+  "modality": "face",
+  "representation": "image",
+  "format": {
+    "media_type": "application/octet-stream",
+    "standard": "ISO_IEC_39794",
+    "standard_part": "5",
+    "standard_edition": "2019",
+    "encoding": "binary",
+    "profile": "face-image-transfer"
+  },
+  "payload": {
+    "type": "external_reference",
+    "uri": "https://transfer.example.invalid/biometrics/01JXYZ",
+    "expires_at": "2026-07-30T20:00:00Z",
+    "size_bytes": 184320,
+    "digest": {
+      "algorithm": "SHA-256",
+      "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "protection": {
+    "encrypted": true,
+    "encryption": {
+      "algorithm": "A256GCM",
+      "key_management": "KMS"
+    },
+    "key_reference": "kms://transfer-keys/biometric-export-2026-07",
+    "binding": "person",
+    "revocable": true,
+    "protection_profile": "ISO-IEC-24745-aligned"
+  },
+  "capture": {
+    "captured_at": "2026-07-29T18:10:00-06:00",
+    "device_vendor": "Example Access Systems",
+    "device_id": "terminal:lobby:01",
+    "quality_score": 78,
+    "quality_algorithm": "vendor-quality-v2"
+  },
+  "purpose": ["physical_access", "identity_verification"],
+  "consent": {
+    "lawful_basis": "explicit_consent",
+    "notice_version": "privacy-biometric-v3",
+    "recorded_at": "2026-07-29T18:05:00-06:00"
+  },
+  "retention": {
+    "delete_after": "2027-07-29T23:59:59-06:00",
+    "policy_id": "biometric-access-12m"
+  },
+  "status": "active",
+  "metadata": {},
+  "created_at": "2026-07-29T18:10:05-06:00",
+  "updated_at": "2026-07-29T18:10:05-06:00"
+}
