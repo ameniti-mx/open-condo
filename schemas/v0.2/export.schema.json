@@ -15,6 +15,7 @@
     "amenities":{"type":"array","items":{"$ref":"amenity.schema.json"}},
     "rule_sets":{"type":"array","items":{"$ref":"rule-set.schema.json"}},
     "reservations":{"type":"array","items":{"$ref":"reservation.schema.json"}},
-    "reservation_charges":{"type":"array","items":{"$ref":"reservation-charge.schema.json"}}
+    "reservation_charges":{"type":"array","items":{"$ref":"reservation-charge.schema.json"}},
+    "biometric_records":{"type":"array","items":{"$ref":"biometric-record.schema.json"},"default":[]}
   }
 }
