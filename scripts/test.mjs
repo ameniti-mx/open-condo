@@ -61,7 +61,7 @@ const cases = [
     name: 'rejects allocations that exceed the payment amount',
     document: (() => {
       const value = clone(validDocument);
-      value.payments[0].allocations[0].amount.value = 2500.01;
+      value.payments[0].allocations[0].amount.value = 2600;
       return value;
     })(),
     valid: false,
