@@ -13,6 +13,7 @@ Open Condo es una iniciativa impulsada por [Ameniti](https://ameniti.mx) para pr
 - Formato: **JSON Schema Draft 2020-12**
 - Licencia: **Apache License 2.0**
 - Idioma normativo inicial: **español de México**
+- Próxima línea de trabajo: **preparación de 0.2 y adopción por implementadores**
 
 Las versiones `0.x` pueden cambiar con base en la retroalimentación de implementadores. No deben considerarse estables hasta la publicación de `1.0.0`.
 
@@ -44,6 +45,8 @@ El caso de uso principal es permitir que un sistema exporte información básica
 
 ```text
 open-condo/
+├── .github/workflows/
+│   └── validate.yml
 ├── schemas/v0.1/
 │   ├── common.schema.json
 │   ├── condominium.schema.json
@@ -57,11 +60,15 @@ open-condo/
 │   └── complete-export.example.json
 ├── docs/
 │   ├── conventions.md
+│   ├── conformance.md
+│   ├── implementation-guide.md
 │   ├── privacy.md
 │   └── versioning.md
 ├── scripts/
 │   └── validate.mjs
 ├── CONTRIBUTING.md
+├── ROADMAP.md
+├── SECURITY.md
 ├── LICENSE
 ├── package.json
 └── README.md
@@ -69,10 +76,12 @@ open-condo/
 
 ## Inicio rápido
 
-Instala las dependencias de desarrollo y valida los ejemplos:
+Requiere Node.js 20 o posterior.
+
+Instala exactamente las dependencias declaradas y valida los ejemplos:
 
 ```bash
-npm install
+npm ci
 npm test
 ```
 
@@ -81,6 +90,18 @@ También puedes validar un archivo propio:
 ```bash
 npm run validate -- ruta/al/archivo.json
 ```
+
+El comando ejecuta validación estructural mediante JSON Schema y comprobaciones semánticas de IDs, referencias, fechas, indivisos, monedas y aplicaciones de pagos.
+
+## Documentación para implementar
+
+- [Guía de implementación](docs/implementation-guide.md): flujo de exportación e importación segura.
+- [Criterios de conformidad](docs/conformance.md): perfiles y suite mínima de pruebas.
+- [Convenciones normativas](docs/conventions.md): reglas obligatorias del estándar.
+- [Privacidad](docs/privacy.md): minimización y datos que no deben exportarse.
+- [Versionado](docs/versioning.md): compatibilidad entre versiones.
+- [Hoja de ruta](ROADMAP.md): candidatos y criterios para la versión 0.2.
+- [Seguridad](SECURITY.md): reporte responsable y expectativas para implementadores.
 
 ## Ejemplo mínimo
 
@@ -143,7 +164,7 @@ La versión 0.1 no estandariza todavía:
 - autenticación, autorización o credenciales;
 - biometría, videovigilancia o reconocimiento facial.
 
-Estos dominios podrán proponerse en versiones posteriores.
+Estos dominios podrán proponerse en versiones posteriores. Consulta [ROADMAP.md](ROADMAP.md) para conocer los candidatos de 0.2 y sus criterios de aceptación.
 
 ## Contribuciones
 
