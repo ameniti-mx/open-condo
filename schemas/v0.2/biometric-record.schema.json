@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-condo.org/schemas/v0.2/biometric-record.schema.json",
+  "title": "Open Condo Biometric Record v0.2",
+  "description": "Registro portable de información biométrica asociado a una persona. El contenido biométrico debe transferirse cifrado o mediante una referencia segura.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "condominium_id", "person_id", "modality", "representation", "format", "payload", "protection", "status", "created_at", "updated_at"],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schemaVersion"},
+    "id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "condominium_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "person_id": {"$ref": "common.schema.json#/$defs/identifier"},
+    "external_ids": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "maxLength": 256}
+    },
+    "modality": {
+      "type": "string",
+      "enum": ["face", "fingerprint", "palmprint", "iris", "voice", "signature", "vein", "full_body", "other"]
+    },
+    "representation": {
+      "type": "string",
+      "enum": ["sample", "image", "template", "features", "reference"]
+    },
+    "format": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["media_type"],
+      "properties": {
+        "media_type": {"type": "string", "minLength": 3, "maxLength": 150},
+        "standard": {
+          "type": "string",
+          "enum": ["ISO_IEC_39794", "ISO_IEC_19794", "ANSI_NIST_ITL", "CBEFF", "VENDOR_SPECIFIC", "OTHER"]
+        },
+        "standard_part": {"type": "string", "maxLength": 50},
+        "standard_edition": {"type": "string", "maxLength": 30},
+        "profile": {"type": "string", "maxLength": 150},
+        "encoding": {"type": "string", "enum": ["binary", "xml", "json", "image", "audio", "other"]},
+        "vendor": {"type": "string", "maxLength": 150},
+        "vendor_format": {"type": "string", "maxLength": 150}
+      }
+    },
+    "payload": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "uri", "digest"],
+          "properties": {
+            "type": {"const": "external_reference"},
+            "uri": {"type": "string", "format": "uri", "maxLength": 2048},
+            "expires_at": {"$ref": "common.schema.json#/$defs/dateTime"},
+            "size_bytes": {"type": "integer", "minimum": 1},
+            "digest": {"$ref": "#/$defs/digest"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "ciphertext", "digest"],
+          "properties": {
+            "type": {"const": "encrypted_inline"},
+            "ciphertext": {"type": "string", "contentEncoding": "base64", "minLength": 1},
+            "size_bytes": {"type": "integer", "minimum": 1},
+            "digest": {"$ref": "#/$defs/digest"}
+          }
+        }
+      ]
+    },
+    "protection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["encrypted", "encryption", "key_reference", "binding", "revocable"],
+      "properties": {
+        "encrypted": {"const": true},
+        "encryption": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["algorithm"],
+          "properties": {
+            "algorithm": {"type": "string", "enum": ["A256GCM", "XC20P", "OTHER"]},
+            "key_management": {"type": "string", "enum": ["A256KW", "RSA-OAEP-256", "ECDH-ES+A256KW", "KMS", "OTHER"]}
+          }
+        },
+        "key_reference": {"type": "string", "minLength": 1, "maxLength": 512},
+        "binding": {"type": "string", "enum": ["person", "pseudonymous_subject", "protected_template"]},
+        "revocable": {"type": "boolean"},
+        "protection_profile": {"type": "string", "maxLength": 150},
+        "integrity_signature": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["algorithm", "value"],
+          "properties": {
+            "algorithm": {"type": "string", "maxLength": 50},
+            "key_id": {"type": "string", "maxLength": 512},
+            "value": {"type": "string", "contentEncoding": "base64", "minLength": 1}
+          }
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "captured_at": {"$ref": "common.schema.json#/$defs/dateTime"},
+        "device_id": {"type": "string", "maxLength": 256},
+        "device_vendor": {"type": "string", "maxLength": 150},
+        "quality_score": {"type": "number", "minimum": 0},
+        "quality_algorithm": {"type": "string", "maxLength": 150}
+      }
+    },
+    "purpose": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "enum": ["physical_access", "identity_verification", "visitor_management", "attendance", "other"]}
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lawful_basis", "notice_version"],
+      "properties": {
+        "lawful_basis": {"type": "string", "enum": ["explicit_consent", "contract", "legal_obligation", "legitimate_interest", "other"]},
+        "notice_version": {"type": "string", "minLength": 1, "maxLength": 100},
+        "recorded_at": {"$ref": "common.schema.json#/$defs/dateTime"},
+        "expires_at": {"$ref": "common.schema.json#/$defs/dateTime"},
+        "withdrawn_at": {"$ref": "common.schema.json#/$defs/dateTime"}
+      }
+    },
+    "retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["delete_after"],
+      "properties": {
+        "delete_after": {"$ref": "common.schema.json#/$defs/dateTime"},
+        "policy_id": {"type": "string", "maxLength": 150}
+      }
+    },
+    "status": {"type": "string", "enum": ["active", "suspended", "revoked", "expired", "deleted"]},
+    "metadata": {"$ref": "common.schema.json#/$defs/metadata"},
+    "created_at": {"$ref": "common.schema.json#/$defs/dateTime"},
+    "updated_at": {"$ref": "common.schema.json#/$defs/dateTime"}
+  },
+  "$defs": {
+    "digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "value"],
+      "properties": {
+        "algorithm": {"type": "string", "enum": ["SHA-256", "SHA-384", "SHA-512"]},
+        "value": {"type": "string", "pattern": "^[A-Fa-f0-9]+$"}
+      }
+    }
+  }
+}
